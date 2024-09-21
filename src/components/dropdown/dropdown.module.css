@@ -1,0 +1,58 @@
+.container {
+  display: inline-block;
+  position: relative;
+}
+
+.container input {
+  background-color: rgba(76, 110, 144, 0.2);
+  width: 100%;
+  transition: box-shadow 0.3s ease;
+  padding: 6px 5px;
+  border-radius: 0.2rem;
+  border: unset;
+  color: #fafafa;
+  font-size: 14px;
+}
+.container input::placeholder{
+  color: rgba(255, 255, 255, 0.529);
+}
+
+.container input:focus {
+  outline: none;
+  box-shadow: 0px 0px 4px 1px #80bff264;
+}
+
+.dropdown-list {
+  z-index: 10;
+  background-color: rgb(28, 46, 64);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  width: 100%;
+  max-height: 20rem;
+  overflow-y: auto;
+}
+
+.dropdown-list li {
+  border: 1px solid #25385786;
+  border-radius: 2px;
+  border-top: 0;
+}
+
+.dropdown-list button {
+  border: none;
+  z-index: 10;
+  background-color: rgba(76, 110, 144, 0.2);
+  font-size: 12px;
+  padding: 0.30rem 0.24rem;
+  cursor: pointer;
+  width: 100%;
+  display: block;
+  text-align: left;
+  color: #fafafa;
+}
+
+.dropdown-list li:hover {
+  background-color: rgba(76, 110, 144, 0.2);
+}
