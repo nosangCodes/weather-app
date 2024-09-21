@@ -1,42 +1,45 @@
-import React from "react";
+import React, { useContext } from "react";
 import classes from "./more-data.module.css";
-import { Thermometer, ThermometerSun, Wind } from "lucide-react";
+import {
+  Thermometer,
+  ThermometerSnowflake,
+  ThermometerSun,
+  Wind,
+} from "lucide-react";
+import { WeatherContext } from "../../providers/weather-provider";
 
-const details = [
-  {
-    icon: <Thermometer color="#fafafaa0" size={35} />,
-    name: "Real feel",
-  },
-  {
-    icon: <Wind color="#fafafaa0" size={35} />,
-    name: "Wind",
-  },
-  {
-    icon: <ThermometerSun color="#fafafaa0" size={35} />,
-    name: "Temp high",
-  },
-];
+const icons = {
+  feels_like: <Thermometer color="#fafafaa0" size={35} />,
+  temp_min: <ThermometerSnowflake color="#fafafaa0" size={35} />,
+  temp_max: <ThermometerSun color="#fafafaa0" size={35} />,
+  wind_speed: <Wind color="#fafafaa0" size={35} />,
+};
 
 export default function MoreData() {
+  const { moreWeatherData } = useContext(WeatherContext);
+  console.log("🚀 ~ MoreData ~ moreWeatherData:", moreWeatherData)
+
   return (
     <div className={`${classes.container} card`}>
       <h4 className="card-heading">Details</h4>
       <div className={classes.cards}>
-        {details?.map((item) => (
-          <DetailsCard key={item.name} {...item} />
-        ))}
+        {moreWeatherData &&
+          moreWeatherData?.length > 0 &&
+          moreWeatherData?.map((item) => (
+            <DetailsCard key={item.identifier} {...item} />
+          ))}
       </div>
     </div>
   );
 }
 
-function DetailsCard({ name, icon }) {
+function DetailsCard({ name, identifier, value }) {
   return (
     <div className={classes["details-card"]}>
-      <div>{icon}</div>
+      <div>{icons[identifier]}</div>
       <div>
         <h5>{name}</h5>
-        <h4>67</h4>
+        <h4>{value}</h4>
       </div>
     </div>
   );

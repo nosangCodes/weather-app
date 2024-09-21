@@ -1,5 +1,5 @@
 .container {
-  margin: 1rem 0;
+  /* margin: 1rem 0; */
   flex: none;
 }
 .error {
@@ -13,11 +13,11 @@
   column-gap: 0.5rem;
 }
 
-.container .main-data h1{
+.container .main-data h1 {
   font-size: 1.8rem;
 }
 
-.container .main-data p{
+.container .main-data p {
   font-size: 0.9rem;
   color: #fafafaa0;
   text-transform: capitalize;
@@ -37,11 +37,57 @@
   width: 170px;
 }
 
-.temp{
-  font-size: 3.4rem;
+.temp {
+  font-size: 3.1rem;
 }
 
 .container .icon img {
   height: 100%;
   width: 100%;
+  flex: none;
+}
+
+.container .icon.mobile-weather-icon {
+  display: none;
+}
+@media only screen and (max-width: 768px) {
+  .temp {
+    font-size: 2.8rem;
+  }
+  .container .main-data h1 {
+    font-size: 1.6rem;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .temp {
+    font-size: 2.4rem;
+    /* text-align: center; */
+  }
+  .container .main-data h1 {
+    font-size: 1.4rem;
+  }
+
+  .container .icon {
+    margin-left: auto;
+    height: 140px;
+    width: 140px;
+  }
+  .main-data {
+    text-align: center;
+  }
+  .container .icon {
+    display: none;
+  }
+
+  .container .icon.mobile-weather-icon {
+    margin-left: unset;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .container .main > div:first-child {
+    align-items: center;
+    row-gap: 10px;
+  }
 }

@@ -9,7 +9,8 @@
 :root {
   --bg-secondary: rgba(76, 110, 144, 0.2);
   --text-secondary: #fafafa;
-  --text-light: #fafafaa0
+  --text-light: #fafafaa0;
+  --x-text-light: #bcbbbb74;
 }
 body {
   margin: 0;
@@ -44,20 +45,21 @@ code {
   }
 }
 
-.error-message{
+.error-message {
   font-size: 14px;
   color: rgb(242, 42, 42);
 }
 
-.card{
+.card {
   border-radius: 0.6rem;
   background-color: var(--bg-secondary);
   min-height: 200px;
   padding: 1rem 0.8rem;
 }
 
-.card-heading{
+.card-heading {
   font-weight: 800;
- font-size: 20px;
- color: var(--text-light);
+  font-size: 14px;
+  color: var(--text-light);
+  text-transform: uppercase;
 }

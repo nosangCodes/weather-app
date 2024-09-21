@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classes from "./weather-details.module.css";
 import { fetchWeatherData } from "../../lib/fetch-weather-data";
 import LoadingSkeleton from "./loading-sekeleton";
-import formatDate from "../../utils/format-date";
+import { WeatherContext } from "../../providers/weather-provider";
 
 export default function WeatherDetails({ lat, lon, cityName }) {
-  const [weatherData, setWeatherData] = useState(null);
+  // const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    if (lat && lon) {
-      setError("");
 
+  const { handleSetWeatherData, weatherData } = useContext(WeatherContext);
+
+  useEffect(() => {
+    if (lat && lon && handleSetWeatherData) {
+      setError("");
       setLoading(true);
       fetchWeatherData(lat, lon)
         .then((res) => {
-          setWeatherData(res);
+          handleSetWeatherData(res);
         })
         .catch((err) => {
           console.error(err);
@@ -35,7 +37,15 @@ export default function WeatherDetails({ lat, lon, cityName }) {
           <div className={classes["main-data"]}>
             <h1>{cityName ? cityName : weatherData?.name}</h1>
             <p>{weatherData?.weather?.[0]?.description}</p>
-            <p>{formatDate(weatherData?.timezone, weatherData?.dt)}</p>
+            <div
+              className={`${classes.icon} ${classes["mobile-weather-icon"]}`}
+            >
+              <img
+                src={`https://openweathermap.org/img/wn/${weatherData?.weather?.[0]?.icon}@4x.png`}
+                alt="weather icon"
+              />
+            </div>
+            {/* <p>{formatDate(weatherData?.timezone, weatherData?.dt)}</p> */}
           </div>
           {weatherData?.main?.temp && (
             <h1 className={classes.temp}>{weatherData?.main?.temp}&deg;C</h1>

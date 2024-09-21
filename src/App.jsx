@@ -5,6 +5,7 @@ import WeatherDetails from "./components/weather-details/weather-details";
 import useUsersLocation from "./hooks/useUsersLocation";
 import TodaysForecast from "./components/todays-forecast/todays-forecast";
 import MoreData from "./components/more-data/more-data";
+import FiveDayForeCasts from "./components/five-day-forecasts/five-day-forecasts";
 
 function App() {
   const { geolocationPos } = useUsersLocation();
@@ -26,12 +27,13 @@ function App() {
           }}
         />
         <WeatherDetails {...position} cityName={cityName} />
-        <TodaysForecast {...position} />
+        <FiveDayForeCasts {...position} />
+        <TodaysForecast  {...position} />
         <MoreData {...position} />
       </div>
-      <div className="five-day-forecast">
+      {/* <div className="five-day-forecast">
         <p>5 days forecast</p>
-      </div>
+      </div> */}
     </div>
   );
 }

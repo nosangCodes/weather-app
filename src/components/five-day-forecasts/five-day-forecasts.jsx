@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { fetchWeatherDataHrly } from "../../lib/fetch-today-hrly-forecast";
+import fetchFiveDayForecast from "../../lib/fetch-five-day-forecasts";
 import ForecastsCards from "../forecasts-cards/forecasts-cards";
-import formatTime from "../../utils/format-time";
+import getOneForecastPerDay from "../../utils/get-one-forecast-per-day";
 
-export default function TodaysForecast({ lat, lon }) {
+export default function FiveDayForeCasts({ lat, lon }) {
   const [todaysForecast, setTodaysForecast] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -12,18 +12,12 @@ export default function TodaysForecast({ lat, lon }) {
     if (lat && lon) {
       setError("");
       setLoading(true);
-      fetchWeatherDataHrly(lat, lon)
+      fetchFiveDayForecast(lat, lon)
         .then((res) => {
           if (res?.list && res.list?.length > 0) {
-            setTodaysForecast(
-              res.list.map((item) => ({
-                time: formatTime(new Date(item?.dt_txt), "time"),
-                icon: item?.weather?.[0]?.icon,
-                temp: item?.main?.temp,
-                temp_min: item?.main?.temp_min,
-                temp_max: item?.main?.temp_max,
-              }))
-            );
+            const newList = getOneForecastPerDay(res.list);
+            console.log("🚀 ~ .then ~ newList:", newList);
+            setTodaysForecast(newList);
           }
         })
         .catch((err) => {
@@ -33,10 +27,9 @@ export default function TodaysForecast({ lat, lon }) {
         .finally(() => setLoading(false));
     }
   }, [lat, lon]);
-
   return (
     <ForecastsCards
-      label={"Today's forecast"}
+      label={"5-day forecast"}
       error={error}
       forecasts={todaysForecast}
       loading={loading}
