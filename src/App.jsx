@@ -3,6 +3,8 @@ import "./App.css";
 import Dropdown from "./components/dropdown/dropdown";
 import WeatherDetails from "./components/weather-details/weather-details";
 import useUsersLocation from "./hooks/useUsersLocation";
+import TodaysForecast from "./components/todays-forecast/todays-forecast";
+import MoreData from "./components/more-data/more-data";
 
 function App() {
   const { geolocationPos } = useUsersLocation();
@@ -24,6 +26,8 @@ function App() {
           }}
         />
         <WeatherDetails {...position} cityName={cityName} />
+        <TodaysForecast {...position} />
+        <MoreData {...position} />
       </div>
       <div className="five-day-forecast">
         <p>5 days forecast</p>
