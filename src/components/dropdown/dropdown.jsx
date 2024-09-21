@@ -4,12 +4,11 @@ import useSearchCities from "../../hooks/useSearchCities";
 import useDebounce from "../../hooks/useDebounce";
 import { fetchWeatherData } from "../../lib/fetch-weather-data";
 
-export default function Dropdown() {
+export default function Dropdown({ onChange }) {
   const [isDropdownFocused, setIsDropdownFocused] = useState(true);
   const [, setValue] = useState(null);
   const dropdownRef = useRef(null); // Reference for dropdown wrapper
   const [inputValue, setInputValue] = useState("");
-  const [weatherData, setWeatherData] = useState(null);
 
   const { getCities, loadedCities, isLoading } = useSearchCities();
 
@@ -18,23 +17,17 @@ export default function Dropdown() {
   ]);
 
   const handleOptions = async (option) => {
-    console.log("selected option", option);
     setValue(option);
     setIsDropdownFocused(false);
     setInputValue(option.name);
     if (option?.position?.lat && option?.position?.lon) {
-      const res = await fetchWeatherData(
-        option.position.lat,
-        option.position.lon
-      );
-      setWeatherData(res);
+      onChange(option.position, option.name);
     }
   };
 
   const handleInputChange = (e) => {
     const value = e.target.value;
     setInputValue(value);
-    // getCities(value);
   };
 
   useEffect(() => {}, []);

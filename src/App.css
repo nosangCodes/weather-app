@@ -2,7 +2,7 @@
   background-color: rgb(11, 19, 30);
   color: white;
   height: 100vh;
-  padding: 1rem 0.8rem;
+  padding: 1rem 1.5rem;
   display: flex;
   flex-direction: row;
   column-gap: 1rem;
@@ -18,8 +18,14 @@
   width: 20rem;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (max-width: 768px) {
   .app {
     flex-direction: column;
   }
+  .weather-details-wrapper{
+    flex: none;
+  }
+}
+
+@media only screen and (min-width: 480px) {
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import classes from "./weather-details.module.css";
 import { fetchWeatherData } from "../../lib/fetch-weather-data";
 
-export default function WeatherDetails({ lat, lon }) {
+export default function WeatherDetails({ lat, lon, cityName }) {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState("");
   useEffect(() => {
@@ -22,9 +22,22 @@ export default function WeatherDetails({ lat, lon }) {
 
   return (
     <div className={classes.container}>
-      Weather details
-      <div>{JSON.stringify(weatherData)}</div>
-      {error && <p>{error}</p>}
+      <div className={classes.main}>
+        <div>
+          <div className={classes["main-data"]}>
+            <h1>{cityName ? cityName : weatherData?.name}</h1>
+            <p>{weatherData?.weather?.[0]?.description}</p>
+          </div>
+          <h1 className={classes.temp}>{weatherData?.main?.temp}&deg;C</h1>
+        </div>
+        <div className={classes.icon}>
+          <img
+            src={`https://openweathermap.org/img/wn/${weatherData?.weather?.[0]?.icon}@4x.png`}
+            alt="weather icon"
+          />
+        </div>
+      </div>
+      {error && <p className={classes.error}>{error}</p>}
     </div>
   );
 }
