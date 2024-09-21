@@ -1,4 +1,4 @@
-export const fetchWeatherDataHrly = async (lat, lon) => {
+export const fetchWeatherDataHrly = async (lat, lon, units = "metric") => {
   try {
     if (!lon || !lat) {
       throw new Error("invalid parameters");
@@ -9,7 +9,7 @@ export const fetchWeatherDataHrly = async (lat, lon) => {
     }
 
     const res = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}&units=metric&cnt=5`
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}&units=${units}&cnt=5`
     );
 
     if (!res.ok) {

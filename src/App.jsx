@@ -6,6 +6,7 @@ import useUsersLocation from "./hooks/useUsersLocation";
 import TodaysForecast from "./components/todays-forecast/todays-forecast";
 import MoreData from "./components/more-data/more-data";
 import FiveDayForeCasts from "./components/five-day-forecasts/five-day-forecasts";
+import ToggleUnit from "./components/toggle-unit/toggle-util";
 
 function App() {
   const { geolocationPos } = useUsersLocation();
@@ -20,20 +21,28 @@ function App() {
   return (
     <div className="app">
       <div className="weather-details-wrapper">
-        <Dropdown
-          onChange={(option, cityName) => {
-            setSelectedLocation(option);
-            setCityName(cityName);
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flex: "1 1 0%",
+            width: "100%",
           }}
-        />
+        >
+          <Dropdown
+            onChange={(option, cityName) => {
+              setSelectedLocation(option);
+              setCityName(cityName);
+            }}
+          />
+          <ToggleUnit />
+        </div>
         <WeatherDetails {...position} cityName={cityName} />
         <FiveDayForeCasts {...position} />
-        <TodaysForecast  {...position} />
+        <TodaysForecast {...position} />
         <MoreData {...position} />
+        
       </div>
-      {/* <div className="five-day-forecast">
-        <p>5 days forecast</p>
-      </div> */}
     </div>
   );
 }

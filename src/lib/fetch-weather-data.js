@@ -1,4 +1,4 @@
-export const fetchWeatherData = async (lat, lon) => {
+export const fetchWeatherData = async (lat, lon, units = "metric") => {
   try {
     if (!lon || !lat) {
       throw new Error("invalid parameters");
@@ -9,14 +9,16 @@ export const fetchWeatherData = async (lat, lon) => {
     }
 
     const res = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}&units=${units}`
     );
 
     if (!res.ok) {
       throw new Error("Something went wrong! Please try again");
     }
 
-    return await res.json();
+    const response = await res.json();
+
+    return { ...response, units };
   } catch (error) {
     console.error("ERROR FETCHING WEATHER DATA", error);
     throw error;

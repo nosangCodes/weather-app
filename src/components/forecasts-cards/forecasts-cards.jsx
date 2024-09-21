@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import classes from "./forecasts-cards.module.css";
+import convertTempUnit from "../../utils/convert-temp-unit";
+import { WeatherContext } from "../../providers/weather-provider";
 
 export default function ForecastsCards({ forecasts, error, loading, label }) {
   return (
@@ -20,6 +22,7 @@ export default function ForecastsCards({ forecasts, error, loading, label }) {
 }
 
 function Card({ time, temp_max, temp_min, icon }) {
+  const { units, fetchedUnit } = useContext(WeatherContext);
   return (
     <div className={classes.card}>
       <p>{time}</p>
@@ -30,7 +33,8 @@ function Card({ time, temp_max, temp_min, icon }) {
         />
       </div>
       <p>
-        {temp_max}&deg;C <span>/</span> {temp_min}&deg;C
+        {convertTempUnit(temp_max, fetchedUnit, units)} <span>/</span>{" "}
+        {convertTempUnit(temp_min, fetchedUnit, units)}
       </p>
     </div>
   );

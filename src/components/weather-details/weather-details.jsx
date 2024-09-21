@@ -3,21 +3,32 @@ import classes from "./weather-details.module.css";
 import { fetchWeatherData } from "../../lib/fetch-weather-data";
 import LoadingSkeleton from "./loading-sekeleton";
 import { WeatherContext } from "../../providers/weather-provider";
+import convertTempUnit from "../../utils/convert-temp-unit";
 
 export default function WeatherDetails({ lat, lon, cityName }) {
-  // const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { handleSetWeatherData, weatherData } = useContext(WeatherContext);
+  const {
+    handleSetWeatherData,
+    weatherData,
+    units,
+    fetchedUnit,
+    handleSetfetchedUnit,
+  } = useContext(WeatherContext);
+
+  useEffect(() => {
+    console.log("fetchedUnit", fetchedUnit);
+  }, [fetchedUnit]);
 
   useEffect(() => {
     if (lat && lon && handleSetWeatherData) {
       setError("");
       setLoading(true);
-      fetchWeatherData(lat, lon)
+      fetchWeatherData(lat, lon, units)
         .then((res) => {
           handleSetWeatherData(res);
+          handleSetfetchedUnit(res.units);
         })
         .catch((err) => {
           console.error(err);
@@ -47,8 +58,11 @@ export default function WeatherDetails({ lat, lon, cityName }) {
             </div>
             {/* <p>{formatDate(weatherData?.timezone, weatherData?.dt)}</p> */}
           </div>
+          {/* <h1 className={classes.temp}>{weatherData?.main?.temp}&deg;C</h1> */}
           {weatherData?.main?.temp && (
-            <h1 className={classes.temp}>{weatherData?.main?.temp}&deg;C</h1>
+            <h1 className={classes.temp}>
+              {convertTempUnit(weatherData?.main?.temp, fetchedUnit, units)}
+            </h1>
           )}
         </div>
         <div className={classes.icon}>

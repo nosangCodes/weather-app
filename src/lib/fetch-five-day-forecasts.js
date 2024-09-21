@@ -1,4 +1,4 @@
-export default async function fetchFiveDayForecast(lat, lon) {
+export default async function fetchFiveDayForecast(lat, lon, units = "metric") {
   try {
     if (!lon || !lat) {
       throw new Error("invalid parameters");
@@ -9,7 +9,7 @@ export default async function fetchFiveDayForecast(lat, lon) {
     }
 
     const res = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}&units=metric`
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}&units=${units}`
     );
 
     if (!res.ok) {

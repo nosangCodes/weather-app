@@ -15,9 +15,12 @@ const icons = {
   wind_speed: <Wind color="#fafafaa0" size={35} />,
 };
 
+// function valueFormmater(identifier, value) {
+//   const temperatureKeys = ["feels_like", "temp_min", "temp_max"];
+// }
+
 export default function MoreData() {
   const { moreWeatherData } = useContext(WeatherContext);
-  console.log("🚀 ~ MoreData ~ moreWeatherData:", moreWeatherData)
 
   return (
     <div className={`${classes.container} card`}>

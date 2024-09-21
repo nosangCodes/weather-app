@@ -2,12 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./dropdown.module.css";
 import useSearchCities from "../../hooks/useSearchCities";
 import useDebounce from "../../hooks/useDebounce";
-import { fetchWeatherData } from "../../lib/fetch-weather-data";
 
 export default function Dropdown({ onChange }) {
   const [isDropdownFocused, setIsDropdownFocused] = useState(true);
   const [, setValue] = useState(null);
-  const dropdownRef = useRef(null); // Reference for dropdown wrapper
+  const dropdownRef = useRef(null);
   const [inputValue, setInputValue] = useState("");
 
   const { getCities, loadedCities, isLoading } = useSearchCities();
@@ -30,7 +29,6 @@ export default function Dropdown({ onChange }) {
     setInputValue(value);
   };
 
-  useEffect(() => {}, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
