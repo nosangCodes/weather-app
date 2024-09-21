@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./dropdown.module.css";
 import useSearchCities from "../../hooks/useSearchCities";
 import useDebounce from "../../hooks/useDebounce";
+import { Loader2 } from "lucide-react";
 
 export default function Dropdown({ onChange }) {
   const [isDropdownFocused, setIsDropdownFocused] = useState(true);
@@ -29,7 +30,6 @@ export default function Dropdown({ onChange }) {
     setInputValue(value);
   };
 
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -47,13 +47,16 @@ export default function Dropdown({ onChange }) {
   return (
     <>
       <div ref={dropdownRef} className={styles.container}>
-        <input
-          value={inputValue}
-          onFocus={() => setIsDropdownFocused(true)}
-          type="text"
-          placeholder={"Search city"}
-          onChange={handleInputChange}
-        />
+        <div className={styles.input}>
+          <input
+            value={inputValue}
+            onFocus={() => setIsDropdownFocused(true)}
+            type="text"
+            placeholder={"Search city"}
+            onChange={handleInputChange}
+          />
+          {isLoading && <Loader2 className="animate-spin" />}
+        </div>
         {isDropdownFocused && (
           <ul className={styles["dropdown-list"]}>
             {loadedCities?.map((city) => (

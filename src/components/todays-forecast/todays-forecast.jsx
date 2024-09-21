@@ -22,8 +22,6 @@ export default function TodaysForecast({ lat, lon }) {
                 time: formatTime(new Date(item?.dt_txt), "time"),
                 icon: item?.weather?.[0]?.icon,
                 temp: item?.main?.temp,
-                temp_min: item?.main?.temp_min,
-                temp_max: item?.main?.temp_max,
               }))
             );
           }

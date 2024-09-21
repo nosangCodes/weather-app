@@ -50,11 +50,10 @@ function useSearchCities() {
         }
       })
       .catch((err) => {
-        console.log("🚀 ~ getCities ~ err:", err);
         return [];
       })
       .finally(() => {
-        setIsLoading(true);
+        setIsLoading(false);
       });
   };
 

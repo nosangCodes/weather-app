@@ -21,21 +21,33 @@ export default function ForecastsCards({ forecasts, error, loading, label }) {
   );
 }
 
-function Card({ time, temp_max, temp_min, icon }) {
+function Card({ time, temp_max, temp_min, icon, temp }) {
   const { units, fetchedUnit } = useContext(WeatherContext);
   return (
     <div className={classes.card}>
-      <p>{time}</p>
-      <div className={classes["card-icon"]}>
+      <p className={classes.time}>{time}</p>
+      <div className={`${classes["card-icon"]} ${classes["lg"]}`}>
         <img
           src={`https://openweathermap.org/img/wn/${icon}@4x.png`}
           alt="weather icon"
         />
       </div>
-      <p>
-        {convertTempUnit(temp_max, fetchedUnit, units)} <span>/</span>{" "}
-        {convertTempUnit(temp_min, fetchedUnit, units)}
-      </p>
+      {temp ? (
+        <p className={classes["card-temp"]}>
+          {convertTempUnit(temp, fetchedUnit, units)}
+        </p>
+      ) : (
+        <p className={classes["card-temp"]}>
+          {convertTempUnit(temp_max, fetchedUnit, units)} <span>/</span>{" "}
+          {convertTempUnit(temp_min, fetchedUnit, units)}
+        </p>
+      )}
+      <div className={`${classes["card-icon"]} ${classes["md"]}`}>
+        <img
+          src={`https://openweathermap.org/img/wn/${icon}@4x.png`}
+          alt="weather icon"
+        />
+      </div>
     </div>
   );
 }

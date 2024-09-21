@@ -12,7 +12,6 @@ export default function getOneForecastPerDay(forecastList = []) {
       dailyForecasts.push({
         time: formatTime(new Date(forecast?.dt_txt)),
         icon: forecast?.weather?.[0]?.icon,
-        temp: forecast?.main?.temp,
         temp_max: forecast?.main?.temp_max,
         temp_min: forecast?.main?.temp_min,
       });

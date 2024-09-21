@@ -27,6 +27,7 @@ function App() {
             flexDirection: "row",
             flex: "1 1 0%",
             width: "100%",
+            columnGap: "10px"
           }}
         >
           <Dropdown
@@ -38,8 +39,8 @@ function App() {
           <ToggleUnit />
         </div>
         <WeatherDetails {...position} cityName={cityName} />
-        <FiveDayForeCasts {...position} />
         <TodaysForecast {...position} />
+        <FiveDayForeCasts {...position} />
         <MoreData {...position} />
         
       </div>

@@ -1,8 +1,8 @@
 .cards {
-  margin: 1.5rem 0;
+  margin: 1.5rem 0 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 100px;
   row-gap: 18px;
 }
 
@@ -10,6 +10,11 @@
   display: flex;
   flex-direction: row;
   column-gap: 8px;
+
+  .icon svg {
+    height: 55px;
+    width: 55px;
+  }
 }
 .details-card > div {
   display: flex;
@@ -17,33 +22,68 @@
   row-gap: 0.2rem;
 
   h5 {
-    font-size: 1.2rem;
-    font-weight: 400;
+    font-size: 0.8rem;
+    font-weight: 600;
     color: var(--text-light);
   }
 
   h4 {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     font-weight: 700;
   }
 }
 
 @media only screen and (max-width: 768px) {
-  .details-card > div {
+  .cards {
+    row-gap: 35px;
+    gap: 50px;
+  }
+
+  .details-card {
+    .icon svg {
+      height: 45px;
+      width: 45px;
+    }
+  }
+  .details-card .meta {
     h5 {
-      font-size: 1rem;
+      font-weight: 600;
+      font-size: 15px;
       color: var(--text-light);
     }
     h4 {
-      font-size: 1.2rem;
+      font-size: 14px;
     }
   }
 }
 
 @media only screen and (max-width: 420px) {
+  .details-card {
+    padding: 10px 0;
+    .icon svg {
+      height: 35px;
+      width: 35px;
+    }
+
+    .meta {
+      flex-direction: row;
+      align-items: center;
+      column-gap: 10px;
+      h5 {
+        font-size: 14px;
+      }
+      h4 {
+        font-size: 12px;
+      }
+    }
+
+    &:not(:last-child) {
+      border-bottom: 0.8px solid rgba(154, 209, 237, 0.193);
+    }
+  }
   .cards {
     grid-template-columns: repeat(1, 1fr);
     gap: 10px;
-    row-gap: 18px;
+    margin-top: 0.2rem;
   }
 }

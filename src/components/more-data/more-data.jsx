@@ -9,10 +9,10 @@ import {
 import { WeatherContext } from "../../providers/weather-provider";
 
 const icons = {
-  feels_like: <Thermometer color="#fafafaa0" size={35} />,
-  temp_min: <ThermometerSnowflake color="#fafafaa0" size={35} />,
-  temp_max: <ThermometerSun color="#fafafaa0" size={35} />,
-  wind_speed: <Wind color="#fafafaa0" size={35} />,
+  feels_like: <Thermometer color="#fafafaa0" />,
+  temp_min: <ThermometerSnowflake color="#fafafaa0" />,
+  temp_max: <ThermometerSun color="#fafafaa0" />,
+  wind_speed: <Wind color="#fafafaa0" />,
 };
 
 // function valueFormmater(identifier, value) {
@@ -39,8 +39,8 @@ export default function MoreData() {
 function DetailsCard({ name, identifier, value }) {
   return (
     <div className={classes["details-card"]}>
-      <div>{icons[identifier]}</div>
-      <div>
+      <div className={classes.icon}>{icons[identifier]}</div>
+      <div className={classes["meta"]}>
         <h5>{name}</h5>
         <h4>{value}</h4>
       </div>

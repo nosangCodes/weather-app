@@ -8,7 +8,6 @@
 .forecast-list {
   display: flex;
   flex-direction: row;
-  overflow-x: auto;
   margin: 0.4rem 0;
 }
 
@@ -20,7 +19,7 @@
   margin: 0.7rem 0;
   justify-content: center;
 
-  p {
+  .time, .card-temp {
     text-align: center;
   }
 }
@@ -38,7 +37,11 @@
   }
 }
 
-.card > p:first-child {
+.card-icon.md {
+  display: none;
+}
+
+.card > .time {
   font-weight: 800;
   font-size: 13px;
   color: var(--text-light);
@@ -48,7 +51,7 @@
   align-items: center;
 }
 
-.card p:last-child {
+.card-temp {
   font-weight: 700;
   font-size: 16px;
 
@@ -62,7 +65,8 @@
   .forecast-list {
     flex-wrap: wrap;
     /* flex-direction: column; */
-    margin: 0.4rem 0;
+    margin: unset;
+
   }
   .card:not(:last-child) {
     border-right: unset;
@@ -72,7 +76,7 @@
     padding: 0.8rem 0;
   }
 
-  .card p:last-child {
+  .card-temo {
     font-weight: 600;
     font-size: 14px;
 
@@ -82,13 +86,53 @@
   }
 }
 
-@media only screen and (max-width: 420px) {
-  .card-icon {
-    height: 60px;
-    width: 60px;
+@media only screen and (max-width: 580px) {
+  .forecast-list {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100%;
   }
 
-  .card p:last-child {
+  .card {
+    flex-direction: row;
+    justify-content: start;
+    column-gap: 10px;
+    padding: unset;
+    margin: unset;
+
+    .time {
+      font-size: 18px;
+    }
+  }
+
+  .card-temp {
+    font-size: 14px;
+    text-align: left;
+  }
+  .card:not(:last-child) {
+    border-bottom: 0.8px solid rgba(154, 209, 237, 0.193);
+  }
+
+  .card-icon.lg {
+    display: none;
+  }
+  .card-icon.md {
+    display: block;
+    margin-left: auto;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .card-icon {
+    height: 55px;
+    width: 55px;
+  }
+
+  .card .time {
+    font-size: 14px;
+  }
+
+  .card-temp {
     font-size: 12px;
 
     span {
