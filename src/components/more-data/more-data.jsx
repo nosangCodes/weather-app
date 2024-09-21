@@ -7,6 +7,7 @@ import {
   Wind,
 } from "lucide-react";
 import { WeatherContext } from "../../providers/weather-provider";
+import MoreDataSkeleton from "./more-data-skeleton";
 
 const icons = {
   feels_like: <Thermometer color="#fafafaa0" />,
@@ -15,22 +16,23 @@ const icons = {
   wind_speed: <Wind color="#fafafaa0" />,
 };
 
-// function valueFormmater(identifier, value) {
-//   const temperatureKeys = ["feels_like", "temp_min", "temp_max"];
-// }
-
 export default function MoreData() {
-  const { moreWeatherData } = useContext(WeatherContext);
+  const { moreWeatherData, loading } = useContext(WeatherContext);
 
   return (
     <div className={`${classes.container} card`}>
       <h4 className="card-heading">Details</h4>
+
       <div className={classes.cards}>
-        {moreWeatherData &&
+        {loading ? (
+          <MoreDataSkeleton />
+        ) : (
+          moreWeatherData &&
           moreWeatherData?.length > 0 &&
           moreWeatherData?.map((item) => (
             <DetailsCard key={item.identifier} {...item} />
-          ))}
+          ))
+        )}
       </div>
     </div>
   );

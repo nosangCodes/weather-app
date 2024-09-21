@@ -7,24 +7,22 @@ import convertTempUnit from "../../utils/convert-temp-unit";
 
 export default function WeatherDetails({ lat, lon, cityName }) {
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const {
     handleSetWeatherData,
+    handleMoreDataLoaded,
+    handleLoadingMoreData,
     weatherData,
     units,
     fetchedUnit,
     handleSetfetchedUnit,
+    loading
   } = useContext(WeatherContext);
-
-  useEffect(() => {
-    console.log("fetchedUnit", fetchedUnit);
-  }, [fetchedUnit]);
 
   useEffect(() => {
     if (lat && lon && handleSetWeatherData) {
       setError("");
-      setLoading(true);
+      handleLoadingMoreData();
       fetchWeatherData(lat, lon, units)
         .then((res) => {
           handleSetWeatherData(res);
@@ -34,12 +32,16 @@ export default function WeatherDetails({ lat, lon, cityName }) {
           console.error(err);
           setError("Something went wrong!");
         })
-        .finally(() => setLoading(false));
+        .finally(() => handleMoreDataLoaded());
     }
     return () => {};
   }, [lat, lon]);
 
   if (loading) return <LoadingSkeleton />;
+
+  const iconSrc = weatherData?.weather?.[0]?.icon
+    ? `https://openweathermap.org/img/wn/${weatherData?.weather?.[0]?.icon}@4x.png`
+    : "/placeholder-weather.png";
 
   return (
     <div className={classes.container}>
@@ -51,10 +53,7 @@ export default function WeatherDetails({ lat, lon, cityName }) {
             <div
               className={`${classes.icon} ${classes["mobile-weather-icon"]}`}
             >
-              <img
-                src={`https://openweathermap.org/img/wn/${weatherData?.weather?.[0]?.icon}@4x.png`}
-                alt="weather icon"
-              />
+              <img src={iconSrc} alt="weather icon" />
             </div>
             {/* <p>{formatDate(weatherData?.timezone, weatherData?.dt)}</p> */}
           </div>
@@ -66,10 +65,7 @@ export default function WeatherDetails({ lat, lon, cityName }) {
           )}
         </div>
         <div className={classes.icon}>
-          <img
-            src={`https://openweathermap.org/img/wn/${weatherData?.weather?.[0]?.icon}@4x.png`}
-            alt="weather icon"
-          />
+          <img src={iconSrc} alt="weather icon" />
         </div>
       </div>
       {error && <p className={classes.error}>{error}</p>}

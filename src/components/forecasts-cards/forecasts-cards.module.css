@@ -1,7 +1,7 @@
 .container {
   border-radius: 0.6rem;
   background-color: var(--bg-secondary);
-  min-height: 200px;
+  /* min-height: 200px; */
   padding: 1rem 0.8rem;
 }
 
@@ -19,7 +19,8 @@
   margin: 0.7rem 0;
   justify-content: center;
 
-  .time, .card-temp {
+  .time,
+  .card-temp {
     text-align: center;
   }
 }
@@ -61,12 +62,27 @@
   }
 }
 
+/* skeleton styles */
+.skeleton-cards {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  gap: 10px;
+
+  .skeleton-card {
+    flex: 1 1 0%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .forecast-list {
     flex-wrap: wrap;
     /* flex-direction: column; */
     margin: unset;
-
   }
   .card:not(:last-child) {
     border-right: unset;
@@ -87,6 +103,10 @@
 }
 
 @media only screen and (max-width: 580px) {
+  .skeleton-cards {
+    flex-direction: column;
+    flex: none;
+  }
   .forecast-list {
     flex-direction: column;
     flex-wrap: nowrap;

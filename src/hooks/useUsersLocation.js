@@ -15,6 +15,9 @@ export default function useUsersLocation() {
 
   function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
+    if (err.code === 1) {
+      handlePermissionDenied();
+    }
   }
 
   function handlePermissionDenied() {
@@ -35,14 +38,14 @@ export default function useUsersLocation() {
       navigator.permissions
         .query({ name: "geolocation" })
         .then((permissionStatus) => {
-          console.log(permissionStatus.state);
+          console.log("permissionStatus", permissionStatus.state);
           if (permissionStatus.state === "granted") {
             navigator.geolocation.getCurrentPosition(success, error, options);
           } else if (permissionStatus.state === "prompt") {
             navigator.geolocation.getCurrentPosition(success, error, options);
           } else if (permissionStatus.state === "denied") {
-            console.log("location permission denied");
             handlePermissionDenied();
+            console.log("location permission denied");
           }
         });
     } else {

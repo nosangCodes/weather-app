@@ -11,6 +11,9 @@ const initialState = {
   handleChangeUnits: () => {},
   handleSetWeatherData: () => {},
   handleSetfetchedUnit: () => {},
+  loading: false,
+  handleLoadingMoreData: () => {},
+  handleMoreDataLoaded: () => {},
 };
 
 export const WeatherContext = createContext(initialState);
@@ -19,11 +22,17 @@ export const WeatherProvider = ({ children }) => {
   const [units, setUnits] = useState("metric");
   const [weatherData, setWeatherData] = useState(null);
   const [moreWeatherData, setMoreWeatherData] = useState(null);
-  // const [fetchedUnit, setFetchedUnit] = useState("");
-
   const fetchedUnit = useRef();
+  const [loading, setLoading] = useState(false);
+
+  const handleLoadingMoreData = () => {
+    setLoading(true);
+  };
+  const handleMoreDataLoaded = () => {
+    setLoading(false);
+  };
+
   const handleSetfetchedUnit = (unit) => {
-    // setFetchedUnit(unit);
     fetchedUnit.current = unit;
   };
 
@@ -43,7 +52,6 @@ export const WeatherProvider = ({ children }) => {
 
   useEffect(() => {
     if (weatherData) {
-      console.log("updated more data");
       setMoreWeatherData([
         {
           identifier: "feels_like",
@@ -93,6 +101,9 @@ export const WeatherProvider = ({ children }) => {
     handleChangeUnits,
     handleSetWeatherData,
     handleSetfetchedUnit,
+    loading,
+    handleLoadingMoreData,
+    handleMoreDataLoaded,
   };
   return (
     <WeatherContext.Provider value={value}>{children}</WeatherContext.Provider>

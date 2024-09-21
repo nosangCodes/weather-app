@@ -25,9 +25,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+input,
+textarea,
+button,
+select,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
 .skeleton-bg {
   background: rgba(82, 119, 156, 0.086);
   border-radius: 2px;
+}
+
+.line-skeleton {
+  height: 10px;
+  width: 100%;
+}
+
+.square-skeleton {
+  height: 60px;
+  aspect-ratio: 1/1;
 }
 
 .animate-pulse {

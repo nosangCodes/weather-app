@@ -2,21 +2,22 @@ import React, { useContext } from "react";
 import classes from "./forecasts-cards.module.css";
 import convertTempUnit from "../../utils/convert-temp-unit";
 import { WeatherContext } from "../../providers/weather-provider";
+import CardsSkeleton from "./cards-skeleton";
 
 export default function ForecastsCards({ forecasts, error, loading, label }) {
   return (
     <div className={classes.container}>
       <h4 className="card-heading">{label}</h4>
       {error && <p className="error-message">{error}</p>}
-      <div className={classes["forecast-list"]}>
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          forecasts.map((item) => (
+      {loading ? (
+        <CardsSkeleton />
+      ) : (
+        <div className={classes["forecast-list"]}>
+          {forecasts.map((item) => (
             <Card key={item.time + item.temp} {...item} />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
