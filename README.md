@@ -1,6 +1,6 @@
 # Weather App
 
-This is a weather app that fetches weather data from OpenWeather API and supports querying places via the TomTom API. The app allows users to search for a city, view its weather conditions, and toggle between Celsius and Fahrenheit units.
+This is a weather app that fetches weather data from the OpenWeather API and supports querying places via the TomTom API. The app allows users to search for a city, view its weather conditions, and toggle between Celsius and Fahrenheit units. Users can also view today’s five-hour forecast and a five-day forecast.
 
 ## Table of Contents
 1. [Prerequisites](#prerequisites)
@@ -13,8 +13,8 @@ This is a weather app that fetches weather data from OpenWeather API and support
 
 ## Prerequisites
 
-- **OpenWeather API Key:** Needed to fetch weather data.
-- **TomTom API Key:** Needed to query place names.
+- **OpenWeather API Key:** Sign up at [OpenWeatherMap](https://openweathermap.org/api) to get your API key for fetching weather data.
+- **TomTom API Key:** Register at [TomTom Developer Portal](https://developer.tomtom.com/) to obtain your API key for querying places.
 
 ---
 
@@ -48,17 +48,14 @@ This is a weather app that fetches weather data from OpenWeather API and support
 - Users will have internet access to fetch data.
 - The app defaults to Celsius, but users can switch to Fahrenheit for temperature display.
 
----
-
 ___
 
 ## How to use
-**Searching:**
-- Enter the city name in the input field at the top of the page.
-- You'll get a list of matching place names. Select any one to view the weather conditions there.
-  
-**Toggle Temperature Units:**
-- You can toggle between Celsius and Fahrenheit using the switch located at the top right of the page.
+1. **Searching:**
+    - Enter the city name in the input field at the top of the page.
+    - You'll get a list of matching place names. Select any one to view the weather conditions there.
+2. **Toggle Temperature Units:**
+    - You can toggle between Celsius and Fahrenheit using the switch located at the top right of the page.
 ___
 
 ## Deployed Link
