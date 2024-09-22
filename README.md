@@ -26,7 +26,7 @@ This is a weather app that fetches weather data from the OpenWeather API and sup
    ```
 2. **Set Up Environment Variables: Create a .env file in the root directory and add your API keys:**
    ```
-   REACT_APP_WEATHER_API_KEY=your_openweather_api_key
+   REACT_APP_OPEN_WEATHER_API_KEY=your_openweather_api_key
    REACT_APP_TOMTOM_API_KEY=your_tomtom_api_key
    ```
 3. **Start Project Locally:**
