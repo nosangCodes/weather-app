@@ -79,12 +79,16 @@ a {
 .error-message {
   font-size: 14px;
   color: rgb(242, 42, 42);
+  margin: 10px 0;
+}
+.info-message {
+  font-size: 14px;
+  color: rgb(242, 142, 42);
 }
 
 .card {
   border-radius: 0.6rem;
   background-color: var(--bg-secondary);
-  min-height: 200px;
   padding: 1rem 0.8rem;
 }
 

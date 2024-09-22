@@ -7,7 +7,6 @@ export default function useDebounce(callback, delay, dependencies = []) {
     }, delay);
 
     return () => {
-      console.log("timout cleared");
       clearTimeout(handler);
     };
   }, [...dependencies]);

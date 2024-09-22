@@ -11,9 +11,13 @@ const initialState = {
   handleChangeUnits: () => {},
   handleSetWeatherData: () => {},
   handleSetfetchedUnit: () => {},
-  loading: false,
+  loading: true,
   handleLoadingMoreData: () => {},
   handleMoreDataLoaded: () => {},
+  handleSaveLastSearch: () => {},
+  handleSetLastSavedSearch: () => {},
+  error: "",
+  setError: () => {},
 };
 
 export const WeatherContext = createContext(initialState);
@@ -23,7 +27,8 @@ export const WeatherProvider = ({ children }) => {
   const [weatherData, setWeatherData] = useState(null);
   const [moreWeatherData, setMoreWeatherData] = useState(null);
   const fetchedUnit = useRef();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const handleLoadingMoreData = () => {
     setLoading(true);
@@ -39,6 +44,27 @@ export const WeatherProvider = ({ children }) => {
   const handleChangeUnits = (type) => {
     setUnits(type);
     window.localStorage.setItem("weather-app-units", type);
+  };
+
+  const handleSaveLastSearch = (data) => {
+    window.localStorage.setItem(
+      "weather-app-last-search",
+      JSON.stringify(data)
+    );
+  };
+
+  const handleSetLastSavedSearch = () => {
+    const lastSearch = JSON.parse(
+      window.localStorage.getItem("weather-app-last-search")
+    );
+    if (lastSearch && lastSearch?.weatherData) {
+      setWeatherData(lastSearch.weatherData);
+      fetchedUnit.current = lastSearch.weatherData.units;
+    } else {
+      setError(
+        "You are currently offline. Please connect to a network to view weather updates."
+      );
+    }
   };
 
   useEffect(() => {
@@ -90,6 +116,9 @@ export const WeatherProvider = ({ children }) => {
   }, [units, weatherData]);
 
   const handleSetWeatherData = (data) => {
+    handleSaveLastSearch({
+      weatherData: data,
+    });
     setWeatherData(data);
   };
 
@@ -104,6 +133,10 @@ export const WeatherProvider = ({ children }) => {
     loading,
     handleLoadingMoreData,
     handleMoreDataLoaded,
+    handleSaveLastSearch,
+    handleSetLastSavedSearch,
+    error,
+    setError,
   };
   return (
     <WeatherContext.Provider value={value}>{children}</WeatherContext.Provider>

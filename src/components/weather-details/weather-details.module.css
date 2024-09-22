@@ -2,9 +2,9 @@
   /* margin: 1rem 0; */
   flex: none;
 }
-.error {
-  color: rgb(199, 46, 46);
-  font-size: 12px;
+.info {
+  margin-block: 10px;
+  text-align: center;
 }
 
 .container .main {

@@ -17,12 +17,12 @@ const icons = {
 };
 
 export default function MoreData() {
-  const { moreWeatherData, loading } = useContext(WeatherContext);
+  const { moreWeatherData, loading, error } = useContext(WeatherContext);
 
   return (
     <div className={`${classes.container} card`}>
       <h4 className="card-heading">Details</h4>
-
+      {error && <p className="error-message">{error}</p>}
       <div className={classes.cards}>
         {loading ? (
           <MoreDataSkeleton />

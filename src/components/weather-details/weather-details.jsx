@@ -4,9 +4,11 @@ import { fetchWeatherData } from "../../lib/fetch-weather-data";
 import LoadingSkeleton from "./loading-sekeleton";
 import { WeatherContext } from "../../providers/weather-provider";
 import convertTempUnit from "../../utils/convert-temp-unit";
+import useIsOnline from "../../hooks/useIsOnline";
 
 export default function WeatherDetails({ lat, lon, cityName }) {
-  const [error, setError] = useState("");
+  const { isOnline } = useIsOnline();
+  const [info, setInfo] = useState("");
 
   const {
     handleSetWeatherData,
@@ -16,26 +18,43 @@ export default function WeatherDetails({ lat, lon, cityName }) {
     units,
     fetchedUnit,
     handleSetfetchedUnit,
-    loading
+    loading,
+    handleSetLastSavedSearch,
+    error,
+    setError,
   } = useContext(WeatherContext);
 
   useEffect(() => {
     if (lat && lon && handleSetWeatherData) {
-      setError("");
-      handleLoadingMoreData();
-      fetchWeatherData(lat, lon, units)
-        .then((res) => {
-          handleSetWeatherData(res);
-          handleSetfetchedUnit(res.units);
-        })
-        .catch((err) => {
-          console.error(err);
-          setError("Something went wrong!");
-        })
-        .finally(() => handleMoreDataLoaded());
+      if (!isOnline) {
+        setInfo(
+          "You're viewing outdated data! Connect to the internet to view the latest weather updates."
+        );
+        handleSetLastSavedSearch();
+        handleMoreDataLoaded();
+      } else {
+        handleLoadingMoreData();
+        fetchWeatherData(lat, lon, units)
+          .then((res) => {
+            handleSetWeatherData({
+              ...res,
+              name: cityName ? cityName : res.name,
+            });
+            handleSetfetchedUnit(res.units);
+          })
+          .catch((err) => {
+            console.error(err);
+            setError("Something went wrong!");
+          })
+          .finally(() => handleMoreDataLoaded());
+      }
     }
-    return () => {};
-  }, [lat, lon]);
+
+    return () => {
+      setInfo("");
+      setError("");
+    };
+  }, [lat, lon, isOnline]);
 
   if (loading) return <LoadingSkeleton />;
 
@@ -45,6 +64,9 @@ export default function WeatherDetails({ lat, lon, cityName }) {
 
   return (
     <div className={classes.container}>
+      {!error && info && (
+        <p className={`${classes.info} info-message`}>{info}</p>
+      )}
       <div className={classes.main}>
         <div>
           <div className={classes["main-data"]}>
@@ -68,7 +90,7 @@ export default function WeatherDetails({ lat, lon, cityName }) {
           <img src={iconSrc} alt="weather icon" />
         </div>
       </div>
-      {error && <p className={classes.error}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 }

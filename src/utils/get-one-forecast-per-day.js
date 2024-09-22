@@ -19,5 +19,5 @@ export default function getOneForecastPerDay(forecastList = []) {
     }
   }
 
-  return dailyForecasts.slice(0, -1);
+  return dailyForecasts.slice(1);
 }

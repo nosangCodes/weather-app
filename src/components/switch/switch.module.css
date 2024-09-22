@@ -9,7 +9,6 @@
 
   input[type="checkbox"] {
     display: none;
-
   }
   .label {
     display: block;
@@ -23,8 +22,6 @@
     display: block;
     width: 200%;
     margin-left: -100%;
-    transition: margin 0.1s ease-in 0s;
-
   }
 
   .inner:before,
@@ -60,10 +57,9 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    /* right: 40px; */
+    right: unset;
     border: 0 solid #bbb;
     border-radius: 50%;
-    transition: all 0.1s ease-in 0s;
     flex: none;
   }
 
@@ -72,5 +68,25 @@
   }
   input[type="checkbox"]:checked + .label .switch {
     right: 0px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    width: 63px;
+    .switch {
+      height: 18px;
+      width: 18px;
+    }
+    .inner:before,
+    .inner:after {
+      height: 28px;
+      line-height: 31px;
+      font-size: 14px;
+    }
+
+    .inner:before {
+      padding-left: 5px;
+    }
   }
 }

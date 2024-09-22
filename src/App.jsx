@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import "./App.css";
 import Dropdown from "./components/dropdown/dropdown";
-import WeatherDetails from "./components/weather-details/weather-details";
 import useUsersLocation from "./hooks/useUsersLocation";
-import TodaysForecast from "./components/todays-forecast/todays-forecast";
-import MoreData from "./components/more-data/more-data";
-import FiveDayForeCasts from "./components/five-day-forecasts/five-day-forecasts";
 import ToggleUnit from "./components/toggle-unit/toggle-util";
+import { Loader2 } from "lucide-react";
+
+const FiveDayForeCasts = lazy(() =>
+  import("./components/five-day-forecasts/five-day-forecasts")
+);
+const TodaysForecast = lazy(() =>
+  import("./components/todays-forecast/todays-forecast")
+);
+const MoreData = lazy(() => import("./components/more-data/more-data"));
+const WeatherDetails = lazy(() =>
+  import("./components/weather-details/weather-details")
+);
 
 function App() {
   const { geolocationPos } = useUsersLocation();
@@ -27,7 +35,8 @@ function App() {
             flexDirection: "row",
             flex: "1 1 0%",
             width: "100%",
-            columnGap: "10px"
+            columnGap: "10px",
+            alignItems: "center",
           }}
         >
           <Dropdown
@@ -38,11 +47,16 @@ function App() {
           />
           <ToggleUnit />
         </div>
-        <WeatherDetails {...position} cityName={cityName} />
-        <TodaysForecast {...position} />
-        <FiveDayForeCasts {...position} />
-        <MoreData {...position} />
-        
+        <Suspense
+          fallback={
+            <Loader2 style={{ margin: "0 auto" }} className="animate-spin" />
+          }
+        >
+          <WeatherDetails {...position} cityName={cityName} />
+          <TodaysForecast {...position} />
+          <FiveDayForeCasts {...position} />
+          <MoreData {...position} />
+        </Suspense>
       </div>
     </div>
   );
