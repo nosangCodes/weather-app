@@ -33,7 +33,6 @@ function App() {
           style={{
             display: "flex",
             flexDirection: "row",
-            flex: "1 1 0%",
             width: "100%",
             columnGap: "10px",
             alignItems: "center",
