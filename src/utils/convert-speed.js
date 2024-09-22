@@ -14,7 +14,7 @@ export default function convertSpeed(speed, inputUnit, targetUnit) {
   } else if (targetUnit === "imperial") {
     result = Number(speed * 2.23694).toFixed(2);
   }
-  return formatSoeedUnit(result);
+  return formatSoeedUnit(result, targetUnit);
 }
 
 function formatSoeedUnit(speed, unit) {
